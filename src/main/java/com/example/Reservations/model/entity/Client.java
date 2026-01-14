@@ -12,7 +12,7 @@ import java.time.Instant;
 
 @Getter
 @Setter
-@Entity(name = "tb_clients")
+@Entity(name = "client")
 public class Client {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)

@@ -8,7 +8,7 @@ import java.time.Instant;
 
 @Getter
 @Setter
-@Entity(name = "tb_locations")
+@Entity(name = "location")
 public class Location {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)

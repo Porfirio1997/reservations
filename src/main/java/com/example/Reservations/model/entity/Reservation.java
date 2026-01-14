@@ -8,7 +8,7 @@ import java.time.Instant;
 
 @Getter
 @Setter
-@Entity(name = "tb_locations")
+@Entity(name = "reservation")
 public class Reservation {
 
     @Id
