@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 
 @Getter
@@ -29,7 +30,7 @@ public class Reservation {
     @Column(nullable = false)
     private Instant data_fim;
 
-    private double valor_final;
+    private BigDecimal valor_final;
 
     private String situacao;
 

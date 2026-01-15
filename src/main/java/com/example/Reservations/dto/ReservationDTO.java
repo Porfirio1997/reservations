@@ -3,13 +3,14 @@ package com.example.Reservations.dto;
 import com.example.Reservations.model.entity.Client;
 import com.example.Reservations.model.entity.Location;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 
 public record ReservationDTO(Location location,
                              Client client,
                              Instant data_inicio,
                              Instant data_fim,
-                             double valor_final,
+                             BigDecimal valor_final,
                              String situacao
 ) {
 }

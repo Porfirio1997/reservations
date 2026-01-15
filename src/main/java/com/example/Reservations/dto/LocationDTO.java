@@ -1,9 +1,11 @@
 package com.example.Reservations.dto;
 
+import java.math.BigDecimal;
+
 public record LocationDTO(String nome,
                           String tipo,
                           String descricao,
-                          double valor_hora,
+                          BigDecimal valor_hora,
                           int tempo_minimo,
                           int tempo_maximo
 ) {
