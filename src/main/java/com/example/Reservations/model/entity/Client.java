@@ -13,11 +13,7 @@ import java.time.Instant;
 @Getter
 @Setter
 @Entity(name = "client")
-public class Client {
-    @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private long id;
-
+public class Client extends AbstractEntity{
     @NotNull
     private String nome;
 
@@ -27,7 +23,4 @@ public class Client {
     private String email;
 
     private String telefone;
-
-    @Column(nullable = false)
-    private Instant data_criacao;
 }

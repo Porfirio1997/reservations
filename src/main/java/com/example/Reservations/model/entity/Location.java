@@ -10,11 +10,7 @@ import java.time.Instant;
 @Getter
 @Setter
 @Entity(name = "location")
-public class Location {
-    @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private long id;
-
+public class Location  extends AbstractEntity{
     private String nome;
 
     private String tipo;
@@ -26,8 +22,5 @@ public class Location {
     private int tempo_minimo;
 
     private int tempo_maximo;
-
-    @Column(nullable = false)
-    private Instant data_criacao;
 
 }

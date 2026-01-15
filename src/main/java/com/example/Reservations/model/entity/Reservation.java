@@ -10,12 +10,7 @@ import java.time.Instant;
 @Getter
 @Setter
 @Entity(name = "reservation")
-public class Reservation {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class Reservation  extends AbstractEntity{
     @ManyToOne(optional = false)
     @JoinColumn(name = "location_id", nullable = false)
     private Location location;
@@ -33,7 +28,4 @@ public class Reservation {
     private BigDecimal valor_final;
 
     private String situacao;
-
-    @Column(nullable = false)
-    private Instant data_criacao;
 }
