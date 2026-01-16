@@ -1,10 +1,12 @@
 package com.example.Reservations.model.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -19,7 +21,7 @@ public abstract class AbstractEntity {
 
     @Column(updatable = false, name = "data_criacao")
     @CreatedDate
-    private LocalDateTime createdDate;
+    private Instant createdDate;
 
     @Override
     public int hashCode() {

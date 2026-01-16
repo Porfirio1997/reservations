@@ -1,6 +1,7 @@
 package com.example.Reservations.model.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +10,7 @@ import java.time.Instant;
 
 @Getter
 @Setter
+@Builder
 @Entity(name = "reservation")
 public class Reservation  extends AbstractEntity{
     @ManyToOne(optional = false)

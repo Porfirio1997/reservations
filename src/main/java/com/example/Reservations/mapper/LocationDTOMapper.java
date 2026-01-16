@@ -1,29 +1,24 @@
 package com.example.Reservations.mapper;
 
 import com.example.Reservations.dto.LocationDTO;
-import com.example.Reservations.model.entity.Client;
 import com.example.Reservations.model.entity.Location;
 
 public class LocationDTOMapper {
     public Location toDomain(LocationDTO dto) {
-        /*
-            private String nome;
-
-            private String tipo;
-
-            private String descricao;
-
-            private double valor_hora;
-
-            private int tempo_minimo;
-
-            private int tempo_maximo;
-        */
-        return new Location();
+        return Location.builder()
+                .id(dto.id())
+                .nome(dto.nome())
+                .tipo(dto.tipo())
+                .descricao(dto.descricao())
+                .valor_hora(dto.valor_hora())
+                .tempo_minimo(dto.tempo_minimo())
+                .tempo_maximo(dto.tempo_maximo())
+                .build();
     }
 
     public LocationDTO toResponse(Location location) {
         return new LocationDTO(
+                location.getId(),
                 location.getNome(),
                 location.getTipo(),
                 location.getDescricao(),

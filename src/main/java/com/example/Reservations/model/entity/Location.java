@@ -1,6 +1,7 @@
 package com.example.Reservations.model.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,8 +10,12 @@ import java.time.Instant;
 
 @Getter
 @Setter
+@Builder
 @Entity(name = "location")
 public class Location  extends AbstractEntity{
+
+    private Long id;
+
     private String nome;
 
     private String tipo;

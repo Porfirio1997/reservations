@@ -10,12 +10,14 @@ import java.time.Instant;
 
 public class ReservationDTOMapper {
     public Reservation toDomain(ReservationDTO dto) {
-        /*
-
-
-
-        */
-        return new Reservation();
+        return Reservation.builder()
+                .location(dto.location())
+                .client(dto.client())
+                .data_inicio(dto.data_inicio())
+                .data_fim(dto.data_fim())
+                .valor_final(dto.valor_final())
+                .situacao(dto.situacao())
+                .build();
     }
 
     public ReservationDTO toResponse(Reservation reservation) {
