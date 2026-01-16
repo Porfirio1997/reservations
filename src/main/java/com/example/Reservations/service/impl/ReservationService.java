@@ -1,4 +1,4 @@
 package com.example.Reservations.service.impl;
 
-public class ClientImplService {
+public class ReservationService {
 }

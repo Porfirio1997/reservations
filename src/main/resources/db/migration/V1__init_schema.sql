@@ -58,3 +58,10 @@ CREATE TABLE reservation (
 CREATE INDEX idx_reservation_location_id ON reservation (location_id);
 CREATE INDEX idx_reservation_client_id ON reservation (client_id);
 CREATE INDEX idx_reservation_data_inicio ON reservation (data_inicio);
+
+CREATE TABLE usuario (
+    id BIGSERIAL PRIMARY KEY,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(255) NOT NULL
+);
