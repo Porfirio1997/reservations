@@ -15,31 +15,26 @@ import java.util.Optional;
 public class LocationService {
     @Autowired
     private LocationRepository repository;
+    @Autowired
+    private ReservationService reservationService;
+
     private LocationDTOMapper locationDTOMapper = new LocationDTOMapper();
 
     public void save(LocationDTO locationDTO) {
         Location client = locationDTOMapper.toDomain(locationDTO);
 
-        Instant now = Instant.now();
-        if (client.getCreatedDate() == null) {
-            client.setCreatedDate(now);
-        }
-
         repository.save(client);
     }
 
     public Location findById(Long id) {
-        Optional<Location> location = repository.findById(id);
-
-        if (location.isPresent()) {
-            return location.get();
-        }
-
-        throw  new NotFoundException("Localização não encontrada", "database.Location.not.found");
+        Location location = repository.findById(id).orElseThrow(() -> new NotFoundException("Localização não encontrada", "database.Location.not.found"));;
+        return location;
     }
 
     public void deleteById(Long id) {
+        reservationService.validateLocationCanBeDeleted(id);
         Optional<Location> location = repository.findById(id);
+
         if (location.isPresent())
             repository.deleteById(id);
     }

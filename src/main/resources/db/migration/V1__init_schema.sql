@@ -22,8 +22,8 @@ CREATE TABLE location (
     tipo VARCHAR(100),
     descricao TEXT,
     valor_hora NUMERIC(10,2),
-    tempo_minimo INTEGER,
-    tempo_maximo INTEGER,
+    tempo_minimo TIMESTAMP,
+    tempo_maximo TIMESTAMP,
     data_criacao TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
 

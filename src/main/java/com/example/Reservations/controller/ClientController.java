@@ -2,16 +2,12 @@ package com.example.Reservations.controller;
 
 import com.example.Reservations.dto.ClientDTO;
 import com.example.Reservations.mapper.ClientDTOMapper;
-import com.example.Reservations.model.entity.Client;
 import com.example.Reservations.service.impl.ClientService;
-import com.example.Reservations.service.impl.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RestController
-@RequestMapping("/api/client")
+@RequestMapping("/api/clients")
 @RequiredArgsConstructor
 public class ClientController {
 
@@ -25,15 +21,26 @@ public class ClientController {
     }
 
     @GetMapping("/{cpf}")
-    public ClientDTO getClient(@PathVariable String cpf){
+    public ClientDTO getClientCpf(@PathVariable String cpf){
         var client = clientService.findByCpf(cpf);
         return clientDTOMapper.toResponse(client);
     }
 
     @DeleteMapping("/{cpf}")
-    public String deleteClient(@PathVariable String cpf){
+    public String deleteClientByCpf(@PathVariable String cpf){
         clientService.deleteByCpf(cpf);
         return "Cliente deletado com sucesso";
     }
 
+    @GetMapping("/{id}")
+    public ClientDTO getClient(@PathVariable Long id){
+        var client = clientService.findById(id);
+        return clientDTOMapper.toResponse(client);
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteClient(@PathVariable Long id){
+        clientService.deleteById(id);
+        return "Cliente deletado com sucesso";
+    }
 }

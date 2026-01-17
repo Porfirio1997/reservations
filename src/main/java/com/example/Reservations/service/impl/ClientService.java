@@ -5,6 +5,7 @@ import com.example.Reservations.exception.ConflictException;
 import com.example.Reservations.exception.NotFoundException;
 import com.example.Reservations.mapper.ClientDTOMapper;
 import com.example.Reservations.model.entity.Client;
+import com.example.Reservations.model.entity.Location;
 import com.example.Reservations.model.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,9 @@ import java.util.Optional;
 public class ClientService {
     @Autowired
     private ClientRepository repository;
+    @Autowired
+    private ReservationService reservationService;
+
     private ClientDTOMapper clientDTOMapper = new ClientDTOMapper();
 
     public void save(ClientDTO clientDTO) {
@@ -25,12 +29,12 @@ public class ClientService {
             throw new ConflictException("Já exite um Cliente cadastrado com esse CPF", "database.Client.Exists");
         });
 
-        Instant now = Instant.now();
-        if (client.getCreatedDate() == null) {
-            client.setCreatedDate(now);
-        }
-
         repository.save(client);
+    }
+
+    public Client findById(Long id) {
+        Client client = repository.findById(id).orElseThrow(() -> new NotFoundException("Cliente não encontrado", "database.client.not.found"));;
+        return client;
     }
 
     public Client findByCpf(String cpf) {
@@ -38,8 +42,18 @@ public class ClientService {
         return Optional.ofNullable(client).orElseThrow(() -> new NotFoundException("Cliente não encontrado", "database.client.not.found"));
     }
 
+    public void deleteById(long id) {
+        reservationService.validateClientCanBeDeleted(id);
+        repository.deleteById(id);
+    }
+
     public void deleteByCpf(String cpf) {
         Client client = repository.findByCpf(cpf);
+
+        Optional.ofNullable(client).orElseThrow(() -> new NotFoundException("Cliente não encontrado para exclusão", "database.client.not.found"));
+
+        reservationService.validateClientCanBeDeleted(client.getId());
+
         repository.delete(client);
     }
 

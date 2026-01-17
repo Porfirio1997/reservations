@@ -1,18 +1,15 @@
 package com.example.Reservations.controller;
 
-import com.example.Reservations.dto.ClientDTO;
 import com.example.Reservations.dto.LocationDTO;
 import com.example.Reservations.mapper.LocationDTOMapper;
-import com.example.Reservations.model.entity.Client;
 
 
-import com.example.Reservations.model.repository.LocationRepository;
 import com.example.Reservations.service.impl.LocationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/location")
+@RequestMapping("/api/locations")
 @RequiredArgsConstructor
 public class LocationController {
 

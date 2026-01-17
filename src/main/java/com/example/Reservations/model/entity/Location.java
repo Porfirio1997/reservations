@@ -1,9 +1,7 @@
 package com.example.Reservations.model.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -12,6 +10,8 @@ import java.time.Instant;
 @Setter
 @Builder
 @Entity(name = "location")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Location  extends AbstractEntity{
 
     private Long id;
@@ -24,8 +24,8 @@ public class Location  extends AbstractEntity{
 
     private BigDecimal valor_hora;
 
-    private int tempo_minimo;
+    private Instant tempo_minimo;
 
-    private int tempo_maximo;
+    private Instant tempo_maximo;
 
 }

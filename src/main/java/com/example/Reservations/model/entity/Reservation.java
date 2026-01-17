@@ -1,9 +1,7 @@
 package com.example.Reservations.model.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -11,6 +9,8 @@ import java.time.Instant;
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "reservation")
 public class Reservation  extends AbstractEntity{
     @ManyToOne(optional = false)
