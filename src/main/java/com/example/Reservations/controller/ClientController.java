@@ -20,13 +20,13 @@ public class ClientController {
         return "Cliente criado com sucesso";
     }
 
-    @GetMapping("/{cpf}")
+    @GetMapping("/cpf/{cpf}")
     public ClientDTO getClientCpf(@PathVariable String cpf){
         var client = clientService.findByCpf(cpf);
         return clientDTOMapper.toResponse(client);
     }
 
-    @DeleteMapping("/{cpf}")
+    @DeleteMapping("/cpf/{cpf}")
     public String deleteClientByCpf(@PathVariable String cpf){
         clientService.deleteByCpf(cpf);
         return "Cliente deletado com sucesso";
