@@ -14,18 +14,17 @@ import org.springframework.web.bind.annotation.*;
 public class LocationController {
 
     private final LocationService locationService;
-    private final LocationDTOMapper locationDTOMapper = new LocationDTOMapper();
+    private final LocationDTOMapper mapper = new LocationDTOMapper();
 
     @PostMapping
     public String createLocation(@RequestBody LocationDTO LocationDTO){
         locationService.save(LocationDTO);
-        return "Locação criada com sucesso";
+        return "Locação criada com sucesso,\n id da localização : ";
     }
 
     @GetMapping("/{id}")
     public LocationDTO getLocation(@PathVariable Long id){
-        var location = locationService.findById(id);
-        return locationDTOMapper.toResponse(location);
+        return mapper.toResponse(locationService.findById(id));
     }
 
     @DeleteMapping("/{id}")
