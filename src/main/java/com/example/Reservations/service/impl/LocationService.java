@@ -46,17 +46,12 @@ public class LocationService {
     }
 
     public List<LocationDTO> getAvailableLocations(Instant data) {
-        // Pega todas as localidades
         List<Location> allLocations = repository.findAll();
-
-        // Filtra apenas as disponíveis
         List<Location> availableLocations = allLocations.stream()
                 .filter(location ->
                         !domainService.existsByLocationAndDataInicioLessThanAndDataFimGreaterThan(location, data)
                 )
                 .toList();
-
-        // Converte para DTO
         return availableLocations.stream()
                 .map(LocationDTOMapper::toResponse)
                 .toList();
