@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+
 @Service
 @RequiredArgsConstructor
 public class ClientLocationReservationService {
@@ -45,4 +47,7 @@ public class ClientLocationReservationService {
         return location;
     }
 
+    public boolean existsByLocationAndDataInicioLessThanAndDataFimGreaterThan(Location location, Instant data){
+        return reservationRepository.existsByLocationAndDataInicioLessThanAndDataFimGreaterThan(location,data,data);
+    }
 }

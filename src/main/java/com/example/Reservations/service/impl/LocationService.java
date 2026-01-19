@@ -17,7 +17,6 @@ import java.util.Optional;
 @Service
 public class LocationService {
     private final LocationRepository repository;
-    private final ClientLocationReservationService Service;
     private final ClientLocationReservationService domainService;
 
     public void save(LocationDTO locationDTO) {
@@ -45,4 +44,21 @@ public class LocationService {
         if (location.isPresent())
             repository.deleteById(id);
     }
+
+    public List<LocationDTO> getAvailableLocations(Instant data) {
+        // Pega todas as localidades
+        List<Location> allLocations = repository.findAll();
+
+        // Filtra apenas as disponíveis
+        List<Location> availableLocations = allLocations.stream()
+                .filter(location ->
+                        !domainService.existsByLocationAndDataInicioLessThanAndDataFimGreaterThan(location, data)
+                )
+                .toList();
+
+        // Converte para DTO
+        return availableLocations.stream()
+                .map(LocationDTOMapper::toResponse)
+                .toList();
     }
+}

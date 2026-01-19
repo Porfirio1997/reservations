@@ -39,4 +39,11 @@ public class LocationController {
         service.deleteById(id);
         return "Localização deletada com sucesso";
     }
+
+    @GetMapping("/available")
+    public List<LocationDTO> getAvailableLocations(
+            @RequestParam Instant data
+    ) {
+        return service.getAvailableLocations(data);
     }
+}
