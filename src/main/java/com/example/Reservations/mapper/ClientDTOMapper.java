@@ -9,6 +9,7 @@ public final class ClientDTOMapper {
 
     public static Client toDomain(ClientDTO dto) {
         return Client.builder()
+                .id(dto.id())
                 .nome(dto.nome())
                 .cpf(dto.cpf())
                 .email(dto.email())
@@ -18,6 +19,7 @@ public final class ClientDTOMapper {
 
     public static ClientDTO toResponse(Client client) {
         return new ClientDTO(
+                client.getId(),
                 client.getNome(),
                 client.getCpf(),
                 client.getEmail(),

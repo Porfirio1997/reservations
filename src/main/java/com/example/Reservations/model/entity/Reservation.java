@@ -15,6 +15,9 @@ import java.time.Instant;
 @EntityListeners(AuditingEntityListener.class)
 @Entity(name = "reservation")
 public class Reservation  extends AbstractEntity{
+
+    Long id;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "location_id", nullable = false)
     private Location location;

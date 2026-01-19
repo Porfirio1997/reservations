@@ -16,6 +16,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 @Entity(name = "client")
 public class Client extends AbstractEntity{
+    private Long id;
 
     private String nome;
 
