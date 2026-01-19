@@ -8,6 +8,7 @@ import com.example.Reservations.service.impl.LocationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.util.List;
 
 @RestController
@@ -38,4 +39,4 @@ public class LocationController {
         service.deleteById(id);
         return "Localização deletada com sucesso";
     }
-}
+    }
