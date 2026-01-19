@@ -6,6 +6,8 @@ import com.example.Reservations.service.impl.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/reservations")
 @RequiredArgsConstructor
@@ -18,6 +20,11 @@ public class ReservationController {
     public String createReservation(@RequestBody ReservationDTO dto) {
         Long id = service.save(dto);
         return "Reservado com sucesso,\n id da reserva: " + id;
+    }
+
+    @GetMapping
+    public List<ReservationDTO> getReservations() {
+        return service.getAllReservations();
     }
 
     @GetMapping("/{id}")

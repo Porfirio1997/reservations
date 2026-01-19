@@ -1,18 +1,15 @@
 package com.example.Reservations.service.impl;
 
-import com.example.Reservations.dto.ClientDTO;
 import com.example.Reservations.dto.ReservationDTO;
 import com.example.Reservations.exception.BusinessException;
-import com.example.Reservations.exception.ConflictException;
 import com.example.Reservations.exception.NotFoundException;
 import com.example.Reservations.mapper.ReservationDTOMapper;
-import com.example.Reservations.model.entity.Client;
 import com.example.Reservations.model.entity.Reservation;
 import com.example.Reservations.model.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
 
 @Service
 public class ReservationService {
@@ -41,7 +38,7 @@ public class ReservationService {
 
         if (repository.existsByLocationAndDataInicioLessThanAndDataFimGreaterThan(dto.location(),dto.data_fim(),dto.data_inicio()))
             throw new BusinessException("Localização está reservada para a data","business.location.is.reserved");
-
+        //reservation.setCreatedDate(Instant.now());
         return repository.save(reservation).getId();
     }
 
@@ -54,6 +51,12 @@ public class ReservationService {
         repository.deleteById(id);
     }
 
+    public List<ReservationDTO> getAllReservations() {
+        return repository.findAll()
+                .stream()
+                .map(ReservationDTOMapper::toResponse)
+                .toList();
+    }
 
 
 }

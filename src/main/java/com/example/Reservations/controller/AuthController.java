@@ -31,4 +31,8 @@ public class AuthController {
         return ResponseEntity.ok(token);
     }
 
+    @PostMapping("/singin")
+    public ResponseEntity<String> singin(@RequestBody AuthRequest login) {
+        return ResponseEntity.ok(usuarioService.createUser(login));
+    }
 }

@@ -8,28 +8,34 @@ import com.example.Reservations.service.impl.LocationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/locations")
 @RequiredArgsConstructor
 public class LocationController {
 
-    private final LocationService locationService;
-    private final LocationDTOMapper mapper = new LocationDTOMapper();
+    private final LocationService service;
 
     @PostMapping
     public String createLocation(@RequestBody LocationDTO LocationDTO){
-        locationService.save(LocationDTO);
+        service.save(LocationDTO);
         return "Locação criada com sucesso,\n id da localização : ";
+    }
+
+    @GetMapping
+    public List<LocationDTO> getAllLocations(){
+        return service.getAllLocations();
     }
 
     @GetMapping("/{id}")
     public LocationDTO getLocation(@PathVariable Long id){
-        return mapper.toResponse(locationService.findById(id));
+        return LocationDTOMapper.toResponse(service.findById(id));
     }
 
     @DeleteMapping("/{id}")
     public String deleteLocation(@PathVariable Long id){
-        locationService.deleteById(id);
+        service.deleteById(id);
         return "Localização deletada com sucesso";
     }
 }

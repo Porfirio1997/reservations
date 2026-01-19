@@ -8,7 +8,7 @@ import com.example.Reservations.model.repository.LocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,14 +19,21 @@ public class LocationService {
     private ReservationService reservationService;
 
     public void save(LocationDTO locationDTO) {
-        Location client = LocationDTOMapper.toDomain(locationDTO);
-
-        repository.save(client);
+        Location location = LocationDTOMapper.toDomain(locationDTO);
+        //location.setCreatedDate(Instant.now());
+        repository.save(location);
     }
 
     public Location findById(Long id) {
         Location location = repository.findById(id).orElseThrow(() -> new NotFoundException("Localização não encontrada", "database.Location.not.found"));;
         return location;
+    }
+
+    public List<LocationDTO> getAllLocations() {
+        return repository.findAll()
+                .stream()
+                .map(LocationDTOMapper::toResponse)
+                .toList();
     }
 
     public void deleteById(Long id) {

@@ -5,12 +5,12 @@ import com.example.Reservations.exception.ConflictException;
 import com.example.Reservations.exception.NotFoundException;
 import com.example.Reservations.mapper.ClientDTOMapper;
 import com.example.Reservations.model.entity.Client;
-import com.example.Reservations.model.entity.Location;
 import com.example.Reservations.model.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,10 +23,14 @@ public class ClientService {
     public void save(ClientDTO clientDTO) {
         Client client = ClientDTOMapper.toDomain(clientDTO);
 
-        Optional.ofNullable(findByCpf(clientDTO.cpf())).ifPresent(d -> {
-            throw new ConflictException("Já exite um Cliente cadastrado com esse CPF", "database.Client.Exists");
-        });
+        if (repository.existsByCpf(clientDTO.cpf())) {
+            throw new ConflictException(
+                    "Já existe um Cliente cadastrado com esse CPF",
+                    "database.client.exists"
+            );
+        }
 
+        //client.setCreatedDate(Instant.now());
         repository.save(client);
     }
 
@@ -47,12 +51,15 @@ public class ClientService {
 
     public void deleteByCpf(String cpf) {
         Client client = repository.findByCpf(cpf);
-
         Optional.ofNullable(client).orElseThrow(() -> new NotFoundException("Cliente não encontrado para exclusão", "database.client.not.found"));
-
         reservationService.validateClientCanBeDeleted(client.getId());
-
         repository.delete(client);
     }
 
+    public List<ClientDTO> getAllClients() {
+        return repository.findAll()
+                .stream()
+                .map(ClientDTOMapper::toResponse)
+                .toList();
+    }
 }

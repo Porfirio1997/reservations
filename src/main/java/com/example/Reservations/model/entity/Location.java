@@ -2,6 +2,7 @@ package com.example.Reservations.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -9,9 +10,10 @@ import java.time.Instant;
 @Getter
 @Setter
 @Builder
-@Entity(name = "location")
 @NoArgsConstructor
 @AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
+@Entity(name = "location")
 public class Location  extends AbstractEntity{
 
     private Long id;
