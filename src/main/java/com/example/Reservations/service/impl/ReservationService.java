@@ -20,15 +20,7 @@ public class ReservationService {
     @Autowired
     private ReservationRepository repository;
 
-    @Autowired
-    private LocationService locationService;
-    @Autowired
-    private ClientService clientService;
-    @Autowired
-    ReservationDTOMapper mapper;
-
     public void validateLocationCanBeDeleted(Long locationId) {
-        locationService.findById(locationId);
         if (repository.existsByLocationId(locationId)) {
             throw new BusinessException(
                     "Não é possível excluir a localização pois existem reservas associadas",
@@ -38,7 +30,6 @@ public class ReservationService {
     }
 
     public void validateClientCanBeDeleted(Long clientId) {
-        clientService.findById(clientId);
         if (repository.existsByClientId(clientId)) {
             throw new BusinessException("Não é possivel excluir o cliente pois existem reservas associadas",
                     "business.client.has.reservations");
@@ -46,7 +37,7 @@ public class ReservationService {
     }
 
     public Long save(ReservationDTO dto) {
-        Reservation reservation = mapper.toDomain(dto);
+        Reservation reservation = ReservationDTOMapper.toDomain(dto);
 
         if (repository.existsByLocationAndDataInicioLessThanAndDataFimGreaterThan(dto.location(),dto.data_fim(),dto.data_inicio()))
             throw new BusinessException("Localização está reservada para a data","business.location.is.reserved");

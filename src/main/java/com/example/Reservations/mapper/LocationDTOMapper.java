@@ -3,8 +3,11 @@ package com.example.Reservations.mapper;
 import com.example.Reservations.dto.LocationDTO;
 import com.example.Reservations.model.entity.Location;
 
-public class LocationDTOMapper {
-    public Location toDomain(LocationDTO dto) {
+public final class LocationDTOMapper {
+
+    private LocationDTOMapper() {}
+
+    public static Location toDomain(LocationDTO dto) {
         return Location.builder()
                 .id(dto.id())
                 .nome(dto.nome())
@@ -16,7 +19,7 @@ public class LocationDTOMapper {
                 .build();
     }
 
-    public LocationDTO toResponse(Location location) {
+    public static LocationDTO toResponse(Location location) {
         return new LocationDTO(
                 location.getId(),
                 location.getNome(),

@@ -18,10 +18,8 @@ public class LocationService {
     @Autowired
     private ReservationService reservationService;
 
-    private LocationDTOMapper locationDTOMapper = new LocationDTOMapper();
-
     public void save(LocationDTO locationDTO) {
-        Location client = locationDTOMapper.toDomain(locationDTO);
+        Location client = LocationDTOMapper.toDomain(locationDTO);
 
         repository.save(client);
     }

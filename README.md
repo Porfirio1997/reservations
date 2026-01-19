@@ -1,10 +1,10 @@
 # reservations
 
-inicialize o banco apartir da raiz do projeto src/main/java
+Inicialize o banco apartir da raiz do projeto Reservations/src
 
 **docker compose up -d**
 
-certifique-se de que o bando está sendo executado
+Certifique-se de que o banco está sendo executado
 
 **docker ps**
 

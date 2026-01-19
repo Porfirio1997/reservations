@@ -20,10 +20,8 @@ public class ClientService {
     @Autowired
     private ReservationService reservationService;
 
-    private ClientDTOMapper clientDTOMapper = new ClientDTOMapper();
-
     public void save(ClientDTO clientDTO) {
-        Client client = clientDTOMapper.toDomain(clientDTO);
+        Client client = ClientDTOMapper.toDomain(clientDTO);
 
         Optional.ofNullable(findByCpf(clientDTO.cpf())).ifPresent(d -> {
             throw new ConflictException("Já exite um Cliente cadastrado com esse CPF", "database.Client.Exists");

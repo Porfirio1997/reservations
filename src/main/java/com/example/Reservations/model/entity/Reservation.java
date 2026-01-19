@@ -21,13 +21,14 @@ public class Reservation  extends AbstractEntity{
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
-    @Column(nullable = false)
-    private Instant data_inicio;
+    @Column(name = "data_inicio")
+    private Instant dataInicio;
 
-    @Column(nullable = false)
-    private Instant data_fim;
+    @Column(name = "data_fim")
+    private Instant dataFim;
 
-    private BigDecimal valor_final;
+    @Column(name = "valor_final")
+    private BigDecimal valorFinal;
 
     private String situacao;
 }
