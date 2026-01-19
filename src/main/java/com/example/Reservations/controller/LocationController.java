@@ -20,7 +20,7 @@ public class LocationController {
     @PostMapping
     public String createLocation(@RequestBody LocationDTO LocationDTO){
         service.save(LocationDTO);
-        return "Locação criada com sucesso,\n id da localização : ";
+        return "Locação criada com sucesso";
     }
 
     @GetMapping

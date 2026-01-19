@@ -16,7 +16,7 @@ public class ReservationController {
     ReservationService service;
     ReservationDTOMapper mapper;
 
-    @PostMapping("/")
+    @PostMapping
     public String createReservation(@RequestBody ReservationDTO dto) {
         Long id = service.save(dto);
         return "Reservado com sucesso,\n id da reserva: " + id;
