@@ -12,6 +12,6 @@ import java.util.List;
 
 public interface ReservationRepository extends JpaRepository<Reservation,Long> {
     boolean existsByLocationAndDataInicioLessThanAndDataFimGreaterThan(Location location,Instant fim,Instant inicio);
-    Boolean existsByClientId(Long clientId);
-    Boolean existsByLocationId(Long locationId);
+    boolean existsByClientId(Long clientId);
+    boolean existsByLocationId(Long locationId);
 }

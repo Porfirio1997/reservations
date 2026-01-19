@@ -6,6 +6,7 @@ import com.example.Reservations.exception.NotFoundException;
 import com.example.Reservations.mapper.ClientDTOMapper;
 import com.example.Reservations.model.entity.Client;
 import com.example.Reservations.model.repository.ClientRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +14,11 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
 public class ClientService {
-    @Autowired
-    private ClientRepository repository;
-    @Autowired
-    private ReservationService reservationService;
+    private final ClientRepository repository;
+    private final ClientLocationReservationService domainService;
 
     public void save(ClientDTO clientDTO) {
         Client client = ClientDTOMapper.toDomain(clientDTO);
@@ -45,14 +45,14 @@ public class ClientService {
     }
 
     public void deleteById(long id) {
-        reservationService.validateClientCanBeDeleted(id);
+        domainService.validateClientCanBeDeleted(id);
         repository.deleteById(id);
     }
 
     public void deleteByCpf(String cpf) {
         Client client = repository.findByCpf(cpf);
         Optional.ofNullable(client).orElseThrow(() -> new NotFoundException("Cliente não encontrado para exclusão", "database.client.not.found"));
-        reservationService.validateClientCanBeDeleted(client.getId());
+        domainService.validateClientCanBeDeleted(client.getId());
         repository.delete(client);
     }
 

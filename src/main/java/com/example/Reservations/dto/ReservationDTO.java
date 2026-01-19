@@ -7,11 +7,11 @@ import java.math.BigDecimal;
 import java.time.Instant;
 
 public record ReservationDTO(Long id,
-                             Location location,
-                             Client client,
-                             Instant data_inicio,
-                             Instant data_fim,
-                             BigDecimal valor_final,
+                             Long locationId,
+                             Long clientId,
+                             Instant dataInicio,
+                             Instant dataFim,
+                             BigDecimal valorFinal,
                              String situacao
 ) {
 }

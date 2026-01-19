@@ -13,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReservationController {
 
-    ReservationService service;
+    private final ReservationService service;
     ReservationDTOMapper mapper;
 
     @PostMapping

@@ -5,18 +5,19 @@ import com.example.Reservations.exception.NotFoundException;
 import com.example.Reservations.mapper.LocationDTOMapper;
 import com.example.Reservations.model.entity.Location;
 import com.example.Reservations.model.repository.LocationRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
 public class LocationService {
-    @Autowired
-    private LocationRepository repository;
-    @Autowired
-    private ReservationService reservationService;
+    private final LocationRepository repository;
+    private final ClientLocationReservationService Service;
+    private final ClientLocationReservationService domainService;
 
     public void save(LocationDTO locationDTO) {
         Location location = LocationDTOMapper.toDomain(locationDTO);
@@ -37,7 +38,7 @@ public class LocationService {
     }
 
     public void deleteById(Long id) {
-        reservationService.validateLocationCanBeDeleted(id);
+        domainService.validateLocationCanBeDeleted(id);
         Optional<Location> location = repository.findById(id);
 
         if (location.isPresent())

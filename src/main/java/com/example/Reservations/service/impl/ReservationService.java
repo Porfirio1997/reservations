@@ -6,39 +6,31 @@ import com.example.Reservations.exception.NotFoundException;
 import com.example.Reservations.mapper.ReservationDTOMapper;
 import com.example.Reservations.model.entity.Reservation;
 import com.example.Reservations.model.repository.ReservationRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class ReservationService {
 
-    @Autowired
-    private ReservationRepository repository;
-
-    public void validateLocationCanBeDeleted(Long locationId) {
-        if (repository.existsByLocationId(locationId)) {
-            throw new BusinessException(
-                    "Não é possível excluir a localização pois existem reservas associadas",
-                    "business.location.has.reservations"
-            );
-        }
-    }
-
-    public void validateClientCanBeDeleted(Long clientId) {
-        if (repository.existsByClientId(clientId)) {
-            throw new BusinessException("Não é possivel excluir o cliente pois existem reservas associadas",
-                    "business.client.has.reservations");
-        }
-    }
+    private final ReservationRepository repository;
+    private final ClientLocationReservationService domainService;
 
     public Long save(ReservationDTO dto) {
         Reservation reservation = ReservationDTOMapper.toDomain(dto);
 
-        if (repository.existsByLocationAndDataInicioLessThanAndDataFimGreaterThan(dto.location(),dto.data_fim(),dto.data_inicio()))
+
+        var client  = domainService.findClientById(dto.clientId());
+        reservation.setClient(client);
+
+        var location = domainService.findLocationById(dto.locationId());
+        reservation.setLocation(location);
+
+        if (repository.existsByLocationAndDataInicioLessThanAndDataFimGreaterThan(location,dto.dataFim(),dto.dataInicio()))
             throw new BusinessException("Localização está reservada para a data","business.location.is.reserved");
-        //reservation.setCreatedDate(Instant.now());
         return repository.save(reservation).getId();
     }
 
